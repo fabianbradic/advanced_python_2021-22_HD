@@ -3,6 +3,8 @@ from pathlib import Path
 import plotly.graph_objects as go
 from collections import deque
 import numpy as np
+from Bio import SeqIO
+import re
 
 def create_metrics(path_to_aa_file):
     amino_acids = pd.read_csv(Path(path_to_aa_file))
@@ -13,7 +15,12 @@ def create_metrics(path_to_aa_file):
     return metrics
 
 def get_name(path_to_fasta_file):
-    pass
+    name = ""
+    with open(Path(path_to_fasta_file)) as handle:
+        for record in SeqIO.parse(handle,"fasta"):
+            name = record.name
+            return name
+
 
 def get_sequence(path_to_fasta_file):
     sequence = ""
@@ -67,11 +74,4 @@ class Protein(object):
 
 
 if __name__ == '__main__':
-    seq = get_sequence("data/P32249.fasta")
-    print(seq)
-    sequence = "MDIQMANNFTPPSATPQGNDCDLYAHHSTARIVMPLHYSLVFIIGLVGNLLALVVIVQNRKKINSTTLYSTNLVISDILFTTALPTRIAYYAMGFDWRIGDALCRITALVFYINTYAGVNFMTCLSIDRFIAVVHPLRYNKIKRIEHAKGVCIFVWILVFAQTLPLLINPMSKQEAERITCMEYPNFEETKSLPWILLGACFIGYVLPLIIILICYSQICCKLFRTAKQNPLTEKSGVNKKALNTIILIIVVFVLCFTPYHVAIIQHMIKKLRFSNFLECSQRHSFQISLHFTVCLMNFNCCMDPFIYFFACKGYKRKVMRMLKRQVSVSISSAVKSAPEENSREMTETQMMIHSKSSNGK"
-    name = "GP183_HUMAN G-protein coupled receptor 183"
-    metrics = create_metrics("data/amino_acid_properties.csv")
-    test = Protein(name, sequence, metrics)
-    fig = test.plot()
-    print(type(fig))
+    get_name("data/P32249.fasta")
