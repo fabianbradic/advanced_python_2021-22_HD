@@ -21,9 +21,9 @@ def test_cointains_None():
     peaks = peak_finder.basic.find_peaks([0,1,3,None,0])
     assert peaks == False
 
-def test_contains_touple():
-    peaks = peak_finder.basic.find_peaks([0,2,4,(1,2,3),5])
-    assert peaks == "touple"
+# def test_contains_touple():
+#     peaks = peak_finder.basic.find_peaks([0,2,4,(1,2,3),5])
+#     assert peaks == "touple"
 
 
 
